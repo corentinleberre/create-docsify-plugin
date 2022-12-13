@@ -18,7 +18,7 @@ $: cd my-plugin
 
 Here is the structure of a project generated with this template. The code is stored in the **src** folder. By default Vitest is provided, so you can write your tests in the matching folder.
 
-```
+```text
 📦create-docsify-plugin
 ┣ 📂src
 ┃ ┣ 📂plugin
@@ -55,7 +55,7 @@ $: npm run build
 
 Two artifacts are generated. You have the choice to deliver it as a CommonJS module ou as an ESModule.
 
-```
+```text
 📦dist
  ┣ 📜my-plugin.cjs
  ┗ 📜my-plugin.js
@@ -69,10 +69,56 @@ If you choose ESM, be aware that you will have to specify **type="module"** in y
 
 ## Examples
 
-Here are detailed examples of plugins I have made using this template :
+### Pass props to your plugin
+
+You can define props that you can pass to your component this way 👇
+
+```html
+// src/index.html
+
+<script>
+    window.$docsify = {
+        name: "My plugin documentation",
+
+        myPlugin: {
+            hello: "world",
+        },
+    };
+</script>
+```
+
+They will be accessible trough the docsify global object in your plugin 👇
+
+```javascript
+// src/plugin/main.js
+
+const props = docsify.myPlugin || {};
+```
+
+### Interact with Docsify lifecycle
+
+>Docsify lifecycle hooks are provided via the **hook argument** passed to the plugin function.
+
+You can attach your function to **6 differents lifecycle hooks** allowing your to modify the state of the app.
+
+Below is the example included in the template for this project. This is a function that will be called once when the Docsify script is **initialized** on the first load of the application. This function will simply display the parameter you provide in the browser console.
+
+```javascript
+const myPlugin = (props = {hello: ""}) => (hook) => hook.init(() => {
+    console.log(`hello ${props.hello}`);
+});
+```
+
+To have more detail about lifecycle hooks check out the [official doc](https://docsify.js.org/#/write-a-plugin?id=lifecycle-hooks)
+
+Here are detailed examples of plugins made using this template 👇
 
 * [docsify-mermaid-zoom](https://github.com/corentinleberre/docsify-mermaid-zoom)
 * [docsify-replace-pattern](https://github.com/corentinleberre/docsify-replace-pattern)
+
+### Test your plugin
+
+You can test your plugin using Vitest. We provide a simple test file that test the boilerplate function in **src/my-plugin.spec.js**.
 
 ## License
 
