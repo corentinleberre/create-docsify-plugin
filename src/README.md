@@ -1,3 +1,3 @@
 # Headline
 
-> A super awesome project to develop your own plugin from scratch!
+> A super awesome template to develop your own Docsify plugin from scratch!
