@@ -1,6 +1,7 @@
 # create-docsify-plugin
 
-Docsify is a popular and lightweight documentation generator that allows you to **easily create beautiful, intuitive documentation sites**. If you want to extend Docsify's capabilities and add your own custom features, **you can create your own Docsify plugin**.
+> Docsify is a popular and lightweight documentation generator that allows you to **easily create beautiful, intuitive documentation sites** based on your markdown documentations. It includes features like a search function, a table of contents, and the ability to customize the look and feel of the site using templates and custom CSS. Thanks to that it's a popular choice for open-source documentation sites and other purposes.
+If you want to extend Docsify's features, you can use [community plugins](https://github.com/docsifyjs/awesome-docsify#plugins) or **create your own Docsify plugin**.
 
 This repository contains a template for creating your own [Docsify](https://docsify.js.org/#/) plugin from scratch with Vite. Using this template will help you get to started quickly and ensure that your plugin follows best practices.
 
@@ -91,7 +92,7 @@ You can define props that you can pass to your component this way 👇
 </script>
 ```
 
-They will be accessible trough the docsify global object in your plugin 👇
+They will be accessible through the docsify global object in your plugin 👇
 
 ```javascript
 // src/plugin/main.js
@@ -108,15 +109,14 @@ You can attach your function to **6 differents lifecycle hooks** allowing your t
 Below is the example included in the template for this project. This is a function that will be called once when the Docsify script is **initialized** on the first load of the application. This function will simply display the parameter provided in the browser console.
 
 ```javascript
-const myPlugin =
-  (props = { hello: "" }) =>
-  (hook) =>
-    hook.init(() => {
-      console.log(`hello ${props.hello}`);
-    });
+const myPlugin = (props = { hello: "" }) => (hook) => hook.init(() => {
+    console.log(`hello ${props.hello}`);
+});
 ```
 
 To have more detail about lifecycle hooks check out the [official doc](https://docsify.js.org/#/write-a-plugin?id=lifecycle-hooks).
+
+The example is deliberately **very simple** here, but it is possible to modify the rendering from Docsify, you can for example add a button to copy and paste the current paragraph when hovering the content or add a custom footer on each page.
 
 Here are detailed examples of plugins made using this template 👇
 
@@ -136,7 +136,7 @@ To deploy this package on npm, you will need to have an account on npmjs.com. On
 
 You can now access your package on npm with this url 👉 [https://www.npmjs.com/package/my-docsify-plugin](https://www.npmjs.com/package/my-docsify-plugin).
 
-To use it this package on your website we will use Jsdelivr.com. It will act as [Content Delivery Network](https://en.wikipedia.org/wiki/Content_delivery_network) proxying your npm package enabling your to use this script directly in the browser.
+To use this package on your website we will use Jsdelivr.com. It will act as [Content Delivery Network](https://en.wikipedia.org/wiki/Content_delivery_network) proxying your npm package enabling you to use this script directly in the browser.
 
 You can get your plugin threw this url 👉 [https://cdn.jsdelivr.net/npm/my-docsify-plugin@version/dist/my-plugin.js](https://cdn.jsdelivr.net/npm/my-docsify-plugin@version/dist/my-plugin.js)
 
@@ -146,7 +146,7 @@ Now your users just have to add this url directly in their Docsify **index.html*
 <script src="//cdn.jsdelivr.net/npm/my-docsify-plugin@version/dist/my-plugin.js"></script>
 ```
 
-If you specified **"main": "dist/my-plugin.js"** in package.json, you could also access it directly with this url 👉 [https://cdn.jsdelivr.net/npm/my-plugin@1.0.0](https://cdn.jsdelivr.net/npm/my-plugin@version)
+If you specified **"main": "dist/my-plugin.js"** in package.json, you could also access it directly with this url 👉 [https://cdn.jsdelivr.net/npm/my-docsify-plugin@1.0.0](https://cdn.jsdelivr.net/npm/my-docsify-plugin@version)
 
 ## License
 
