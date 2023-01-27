@@ -1,14 +1,50 @@
-import { describe, expect, test, vi } from "vitest";
-import myPlugin from "../plugin/my-plugin";
+import { test, expect } from "@playwright/test";
 
-describe("my plugin", () => {
-  test("should say hello", () => {
-    const consoleSpy = vi.spyOn(console, "log");
-    const mockHook = { init: (fn) => fn() };
+test.describe("README.md should be rendered", () => {
+  test('page should have title of "Docsify plugin playground"', async ({
+    page,
+  }) => {
+    await page.goto("/");
+    const title = await page.title();
+    expect(title).toBe("Docsify plugin playground");
+  });
+});
 
-    const pluginWithArgs = myPlugin({ hello: "world" });
-    pluginWithArgs(mockHook);
+test.describe("Edit on git plugin should whork", () => {
+  test("page should have Github edit button", async ({ page }) => {
+    await page.goto("/");
+    const editButton = await page.getByText("📝 Edit on Github");
+    expect(editButton).toBeDefined();
+    const href = await editButton.getAttribute("href");
+    expect(href).toBe(
+      "https://github.com/corentinleberre/create-docsify-plugin/blob/main/src/README.md"
+    );
+  });
+});
 
-    expect(consoleSpy).toHaveBeenNthCalledWith(1, "hello world");
+test.describe("Custom footer plugin should work", () => {
+  test("footer should be defined", async ({ page }) => {
+    await page.goto("/");
+
+    const footer = await page.locator("footer");
+    expect(footer).toBeDefined();
+  });
+
+  test("footer should contain custom text", async ({ page }) => {
+    await page.goto("/");
+
+    const footerContent = await page.locator("footer").innerText();
+    expect(footerContent).toBe("My awesome custom footer ✨");
+  });
+
+  test("footer should contain custom link", async ({ page }) => {
+    await page.goto("/");
+
+    const footerLink = await page.locator("footer").getByRole("link");
+    expect(footerLink).toBeDefined();
+    const footerLinkHref = await footerLink.getAttribute("href");
+    const footerLinkContent = await footerLink.innerText();
+    expect(footerLinkHref).toBe("https://github.com/docsifyjs/awesome-docsify");
+    expect(footerLinkContent).toBe("✨");
   });
 });
