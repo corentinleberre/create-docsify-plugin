@@ -36,7 +36,7 @@ Here is the structure of this template. The code is stored in the **src** folder
 ┗ 📜vite-config.js
 ```
 
-We use [Vite](https://github.com/vitejs/vite) as a dev server. This allows you to take advantage of hot reloading in development and easily build and minify code with [Rollup](https://rollupjs.org/) integration. Vitest is also provided, so you can write tests in the matching folder.
+We use [Vite](https://github.com/vitejs/vite) as a dev server. This allows you to take advantage of hot reloading in development and easily build and minify code with [Rollup](https://rollupjs.org/) integration. [Playwright](https://github.com/microsoft/playwright) is also provided, so you can write intregration tests in the matching folder.
 
 ### Write your plugin
 
