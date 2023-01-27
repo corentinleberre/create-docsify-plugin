@@ -1,8 +1,15 @@
-import myPlugin from "./my-plugin";
+import { editOnGitPlugin, customFooterPlugin } from "./my-plugin";
 
 const docsify = window.$docsify || {};
 
-// Remove if you don't use props
-const props = docsify.myPlugin || {};
+const props =
+  {
+    editOnGitPlugin: docsify.editOnGitPlugin,
+    customFooterPlugin: docsify.customFooterPlugin,
+  } || {};
 
-docsify.plugins = [].concat(docsify.plugins || [], myPlugin(props));
+docsify.plugins = [].concat(
+  docsify.plugins || [],
+  editOnGitPlugin(props.editOnGitPlugin),
+  customFooterPlugin(props.customFooterPlugin)
+);
